@@ -6,7 +6,7 @@ const verifyToken = (token) => {
   return new Promise((resolve, reject) => {
     jwt.verify(token, process.env.JWT_SECRET_KEY, function (err, token) {
       if (err) return reject(err);
-      console.log("Building")
+     
       return resolve(token);
     });
   });
@@ -26,12 +26,11 @@ module.exports = async (req, res, next) => {
 
   // else we will try to get the user from the token
   const token = bearerToken.split(" ")[1];
- console.log(token);
+ //console.log(token);
   let user;
   try {
     user = await verifyToken(token);
-    // console.log(user);
-     console.log("hi")
+    
   } catch (e) {
     return res.status(400).json({
       status: "failed",
